@@ -11,24 +11,19 @@ import Button from './Button';
 import { IoCloseOutline } from 'react-icons/io5';
 import { useNavigate } from 'react-router';
 import PathConstants from '../routes/pathConstants';
-import { useRef } from 'react';
-import { useClickOutside } from '../utils/hooks/useClickOutside';
 
 interface CartModalProps {
+  isOpen: boolean;
   closeModal: () => void;
 }
 
 const CartModal = ({ closeModal }: CartModalProps) => {
-  const elRef = useRef<HTMLDivElement>(null);
-
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
   const { cartItems, totalAmount, totalPrice } = useSelector(
     (state: IRootState) => state.cart
   );
-
-  useClickOutside(elRef, closeModal);
 
   dispatch(getTotalPrice());
 
@@ -87,10 +82,7 @@ const CartModal = ({ closeModal }: CartModalProps) => {
   });
 
   return (
-    <div
-      ref={elRef}
-      className='text-primary drop-shadow-2xl rounded bg-white p-8 absolute mx-auto top-28 z-10 w-[340px] md:right-12 lg:right-0'
-    >
+    <div className='text-primary drop-shadow-2xl rounded bg-white p-8 absolute mx-auto top-28 z-10 w-[340px] md:right-12 lg:right-0'>
       {totalAmount === 0 ? (
         <div>
           <h3 className='text-lg font-bold text-center'>Cart is empty...</h3>

@@ -1,13 +1,17 @@
 import { Link } from 'react-router-dom';
 import PathConstants from '../routes/pathConstants';
 import useMediaQueries from '../utils/hooks/useMediaQueries';
-import { useState } from 'react';
+import { useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import CartModal from './CartModal';
+import { useClickOutside } from '../utils/hooks/useClickOutside';
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
+
+  const elRef = useRef<HTMLDivElement>(null);
+  useClickOutside(elRef, () => setIsModalOpen(false));
 
   const handleClick = () => {
     setIsMenuOpen((prev) => !prev);
@@ -25,7 +29,10 @@ const Navbar: React.FC = () => {
   if (md && lg) {
     return (
       <nav className='bg-primary w-full'>
-        <div className='relative container mx-auto px-10 py-8 flex flex-row justify-between items-center border-b border-white border-opacity-50'>
+        <div
+          ref={elRef}
+          className='relative container mx-auto px-10 py-8 flex flex-row justify-between items-center border-b border-white border-opacity-50'
+        >
           <NavLink to={PathConstants.HOME}>
             <img src='./assets/shared/desktop/logo.svg' alt='logo' />
           </NavLink>
@@ -47,7 +54,10 @@ const Navbar: React.FC = () => {
             <img src='./assets/shared/desktop/icon-cart.svg' alt='cart' />
           </button>
           {isModalOpen && (
-            <CartModal closeModal={() => setIsModalOpen(!isModalOpen)} />
+            <CartModal
+              isOpen={isModalOpen}
+              closeModal={() => setIsModalOpen(false)}
+            />
           )}
         </div>
       </nav>
@@ -67,7 +77,12 @@ const Navbar: React.FC = () => {
         <button onClick={handleCartClick}>
           <img src='./assets/shared/desktop/icon-cart.svg' alt='cart' />
         </button>
-        {isModalOpen && <CartModal closeModal={() => setIsModalOpen(false)} />}
+        {isModalOpen && (
+          <CartModal
+            isOpen={isModalOpen}
+            closeModal={() => setIsModalOpen(false)}
+          />
+        )}
       </div>
       {isMenuOpen && (
         <div className='w-full px-8 py-8 items-center bottom-0 flex flex-col gap-8 bg-primary border-b border-white border-opacity-50 text-white uppercase text-sm font-bold tracking-wider '>
