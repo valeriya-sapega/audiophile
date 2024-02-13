@@ -56,14 +56,14 @@ const CartModal = ({ closeModal }: CartModalProps) => {
           <div className='bg-greyBg w-20 rounded flex flex-row font-bold justify-center items-center'>
             <button
               onClick={() => dispatch(decrementFromCart(product))}
-              className='text-primary text-opacity-50 py-1 px-2'
+              className='text-primary text-opacity-50 py-1 px-2 hover:text-accentOrange'
             >
               -
             </button>
             <span className='px-2 text-sm'>{product.amount}</span>
             <button
               onClick={() => dispatch(addToCart(product))}
-              className='text-primary text-opacity-50 py-1 px-2'
+              className='text-primary text-opacity-50 py-1 px-2 hover:text-accentOrange'
             >
               +
             </button>
@@ -82,7 +82,7 @@ const CartModal = ({ closeModal }: CartModalProps) => {
   });
 
   return (
-    <div className='text-primary drop-shadow-2xl rounded bg-white p-8 absolute mx-auto left-0 right-0 top-28 z-10 w-[340px] md:right-12 md:left-auto lg:right-0'>
+    <div className='text-primary drop-shadow-2xl rounded bg-white p-8 absolute mx-auto left-0 right-0 top-28 z-10 w-[340px] sm:right-12 sm:left-auto lg:right-0'>
       {totalAmount === 0 ? (
         <div>
           <h3 className='text-lg font-bold text-center'>Cart is empty...</h3>
