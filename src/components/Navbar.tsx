@@ -5,13 +5,21 @@ import { useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import CartModal from './CartModal';
 import { useClickOutside } from '../utils/hooks/useClickOutside';
+import { useDispatch, useSelector } from 'react-redux';
+import { IRootState, getTotalPrice } from '../store/store';
 
 const Navbar: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isModalOpen, setIsModalOpen] = useState(false);
 
+  const dispatch = useDispatch();
+
+  const { totalAmount } = useSelector((state: IRootState) => state.cart);
+
   const elRef = useRef<HTMLDivElement>(null);
   useClickOutside(elRef, () => setIsModalOpen(false));
+
+  dispatch(getTotalPrice());
 
   const handleClick = () => {
     setIsMenuOpen((prev) => !prev);
@@ -50,9 +58,16 @@ const Navbar: React.FC = () => {
               <span className='hover:text-accentOrange'>Earphones</span>
             </NavLink>
           </div>
-          <button onClick={handleCartClick}>
-            <img src='./assets/shared/desktop/icon-cart.svg' alt='cart' />
-          </button>
+          <div className='relative'>
+            <button onClick={handleCartClick}>
+              <img src='./assets/shared/desktop/icon-cart.svg' alt='cart' />
+            </button>
+            {totalAmount > 0 && (
+              <div className='absolute z-1 -right-5 -top-4 px-2 py-1 text-[10px] rounded-full bg-accentOrange text-white'>
+                {totalAmount}
+              </div>
+            )}
+          </div>
           {isModalOpen && (
             <CartModal
               isOpen={isModalOpen}
@@ -74,9 +89,16 @@ const Navbar: React.FC = () => {
         <Link to={PathConstants.HOME}>
           <img src='./assets/shared/desktop/logo.svg' alt='logo' />
         </Link>
-        <button onClick={handleCartClick}>
-          <img src='./assets/shared/desktop/icon-cart.svg' alt='cart' />
-        </button>
+        <div className='relative'>
+          <button onClick={handleCartClick}>
+            <img src='./assets/shared/desktop/icon-cart.svg' alt='cart' />
+          </button>
+          {totalAmount > 0 && (
+            <div className='absolute z-1 -right-5 -top-4 px-2 py-1 text-[10px] rounded-full bg-accentOrange text-white'>
+              {totalAmount}
+            </div>
+          )}
+        </div>
         {isModalOpen && (
           <CartModal
             isOpen={isModalOpen}

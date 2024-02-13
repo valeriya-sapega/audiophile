@@ -55,7 +55,7 @@ const Checkout = () => {
   return (
     <div className='mx-auto container'>
       <div className='mx-4 my-12 grid grid-cols-1 md:my-32 md:mx-12 lg:grid-cols-3 gap-4 '>
-        <div className='bg-white shadow-xl rounded px-6 py-8 md:px-14 md:py-12 lg:cols-start-1 lg:col-span-2'>
+        <div className='bg-white shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] rounded px-6 py-8 md:px-14 md:py-12 lg:cols-start-1 lg:col-span-2'>
           <h1 className='text-3xl uppercase font-bold tracking-wide mb-10'>
             Checkout
           </h1>
@@ -150,7 +150,7 @@ const Checkout = () => {
             </div>
           </div>
         </div>
-        <div className='bg-white shadow-xl rounded h-fit px-6 py-8 md:px-14 md:py-12 '>
+        <div className='bg-white shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] rounded h-fit px-6 py-8 md:px-14 md:py-12 '>
           <h2 className='text-lg font-bold tracking-wider uppercase '>
             Summary
           </h2>
