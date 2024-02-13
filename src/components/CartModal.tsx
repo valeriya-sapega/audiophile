@@ -39,8 +39,12 @@ const CartModal = ({ closeModal }: CartModalProps) => {
         className='flex flex-row justify-between items-center'
       >
         <div className='flex flex-row gap-2 items-center'>
-          <div className='w-12 h-12 rounded'>
-            <img src={product.image.desktop} alt={product.model} />
+          <div className='w-12 h-12'>
+            <img
+              className='rounded-lg'
+              src={product.image.desktop}
+              alt={product.model}
+            />
           </div>
           <div>
             <h3 className='text-sm uppercase font-bold text-primary'>
