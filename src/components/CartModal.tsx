@@ -1,0 +1,129 @@
+import { useDispatch, useSelector } from 'react-redux';
+import {
+  IRootState,
+  addToCart,
+  getTotalPrice,
+  decrementFromCart,
+  removeFromCart,
+  removeAllFromCart,
+} from '../store/store';
+import Button from './Button';
+import { IoCloseOutline } from 'react-icons/io5';
+import { useNavigate } from 'react-router';
+import PathConstants from '../routes/pathConstants';
+import { useRef } from 'react';
+import { useClickOutside } from '../utils/hooks/useClickOutside';
+
+interface CartModalProps {
+  closeModal: () => void;
+}
+
+const CartModal = ({ closeModal }: CartModalProps) => {
+  const elRef = useRef<HTMLDivElement>(null);
+
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+
+  const { cartItems, totalAmount, totalPrice } = useSelector(
+    (state: IRootState) => state.cart
+  );
+
+  useClickOutside(elRef, closeModal);
+
+  dispatch(getTotalPrice());
+
+  const hadleCheckoutClick = () => {
+    closeModal();
+    navigate(PathConstants.CHECKOUT);
+  };
+
+  const products = cartItems.map((product) => {
+    return (
+      <div
+        key={product.name}
+        className='flex flex-row justify-between items-center'
+      >
+        <div className='flex flex-row gap-2 items-center'>
+          <div className='w-12 h-12 rounded'>
+            <img src={product.image.desktop} alt={product.model} />
+          </div>
+          <div>
+            <h3 className='text-sm uppercase font-bold text-primary'>
+              {product.model}
+            </h3>
+
+            <h3 className='text-sm uppercase font-bold text-primary text-opacity-50'>
+              $ {product.price.toLocaleString()}
+            </h3>
+          </div>
+        </div>
+        <div className='flex flex-row gap-2 items-center'>
+          <div className='bg-greyBg w-20 rounded flex flex-row font-bold justify-center items-center'>
+            <button
+              onClick={() => dispatch(decrementFromCart(product))}
+              className='text-primary text-opacity-50 py-1 px-2'
+            >
+              -
+            </button>
+            <span className='px-2 text-sm'>{product.amount}</span>
+            <button
+              onClick={() => dispatch(addToCart(product))}
+              className='text-primary text-opacity-50 py-1 px-2'
+            >
+              +
+            </button>
+          </div>
+          <div>
+            <button
+              onClick={() => dispatch(removeFromCart(product))}
+              className='bg-greyBg rounded p-2'
+            >
+              <IoCloseOutline />
+            </button>
+          </div>
+        </div>
+      </div>
+    );
+  });
+
+  return (
+    <div
+      ref={elRef}
+      className='text-primary drop-shadow-2xl rounded bg-white p-8 absolute mx-auto top-28 z-10 w-[340px] md:right-12 lg:right-0'
+    >
+      {totalAmount === 0 ? (
+        <div>
+          <h3 className='text-lg font-bold text-center'>Cart is empty...</h3>
+        </div>
+      ) : (
+        <>
+          <div className='flex flex-row justify-between items-center mb-6'>
+            <h2 className='text-lg tracking-wider uppercase'>
+              CART ({totalAmount})
+            </h2>
+            <Button
+              className='font-medium p-0'
+              variant='link'
+              onClick={() => dispatch(removeAllFromCart())}
+            >
+              Remove all
+            </Button>
+          </div>
+          <div className='flex flex-col gap-6'>{products}</div>
+          <div className='flex flex-row justify-between items-center mt-8 mb-6 mr-1'>
+            <h3 className='text-sm font-light text-primary text-opacity-50 uppercase'>
+              Total
+            </h3>
+            <h3 className='text-lg font-bold text-primary uppercase'>
+              $ {totalPrice.toLocaleString()}
+            </h3>
+          </div>
+          <Button onClick={hadleCheckoutClick} className='w-full'>
+            Checkout
+          </Button>
+        </>
+      )}
+    </div>
+  );
+};
+export default CartModal;
