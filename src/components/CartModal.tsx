@@ -82,7 +82,7 @@ const CartModal = ({ closeModal }: CartModalProps) => {
   });
 
   return (
-    <div className='text-primary drop-shadow-2xl rounded bg-white p-8 absolute mx-auto top-28 z-10 w-[340px] md:right-12 lg:right-0'>
+    <div className='text-primary drop-shadow-2xl rounded bg-white p-8 absolute mx-auto left-0 right-0 top-28 z-10 w-[340px] md:right-12 md:left-auto lg:right-0'>
       {totalAmount === 0 ? (
         <div>
           <h3 className='text-lg font-bold text-center'>Cart is empty...</h3>
