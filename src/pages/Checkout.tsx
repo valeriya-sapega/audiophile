@@ -1,11 +1,15 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { IRootState, getTotalPrice } from '../store/store';
+import { IRootState, getTotalPrice, removeAllFromCart } from '../store/store';
 
 import Input from '../components/Input';
 import RadioButton from '../components/RadioButton';
 import Button from '../components/Button';
+import { useState } from 'react';
+import ThankYouPopup from '../components/ThankYouPopup';
 
 const Checkout = () => {
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
   const dispatch = useDispatch();
 
   const { cartItems, totalPrice } = useSelector(
@@ -13,6 +17,14 @@ const Checkout = () => {
   );
 
   dispatch(getTotalPrice());
+
+  const onOrderCompleteClick = () => {
+    setIsModalOpen(true);
+  };
+  const handleModalClose = () => {
+    setIsModalOpen(false);
+    dispatch(removeAllFromCart());
+  };
 
   const renderedCartItems = cartItems.map((product) => {
     return (
@@ -168,7 +180,10 @@ const Checkout = () => {
               $ {(shippingPrice + totalPrice).toLocaleString()}
             </h3>
           </div>
-          <Button className='w-full'>Complete order</Button>
+          <Button onClick={onOrderCompleteClick} className='w-full'>
+            Complete order
+          </Button>
+          <ThankYouPopup isOpen={isModalOpen} onClose={handleModalClose} />
         </div>
       </div>
     </div>
