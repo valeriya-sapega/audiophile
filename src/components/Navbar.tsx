@@ -1,6 +1,4 @@
-import { Link } from 'react-router-dom';
 import PathConstants from '../routes/pathConstants';
-import useMediaQueries from '../utils/hooks/useMediaQueries';
 import { useRef, useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import CartModal from './CartModal';
@@ -22,7 +20,7 @@ const Navbar: React.FC = () => {
   dispatch(getTotalPrice());
 
   const handleClick = () => {
-    setIsMenuOpen((prev) => !prev);
+    setIsMenuOpen(!isMenuOpen);
   };
 
   const handleCartClick = () => {
@@ -33,63 +31,31 @@ const Navbar: React.FC = () => {
     setIsMenuOpen(false);
   };
 
-  const { md, lg } = useMediaQueries();
-  if (md && lg) {
-    return (
-      <nav className='bg-primary w-full'>
-        <div
-          ref={elRef}
-          className='relative container mx-auto px-10 py-8 flex flex-row justify-between items-center border-b border-white border-opacity-50'
-        >
-          <NavLink to={PathConstants.HOME}>
-            <img src='./assets/shared/desktop/logo.svg' alt='logo' />
-          </NavLink>
-          <div className='flex flex-row gap-16 text-white uppercase text-sm font-bold tracking-wider'>
-            <NavLink to={PathConstants.HOME}>
-              <span className='hover:text-accentOrange'>Home</span>
-            </NavLink>
-            <NavLink to={PathConstants.HEADPHONES}>
-              <span className='hover:text-accentOrange'>Headphones</span>
-            </NavLink>
-            <NavLink to={PathConstants.SPEAKERS}>
-              <span className='hover:text-accentOrange'>Speakers</span>
-            </NavLink>
-            <NavLink to={PathConstants.EARPHONES}>
-              <span className='hover:text-accentOrange'>Earphones</span>
-            </NavLink>
-          </div>
-          <div className='relative'>
-            <button onClick={handleCartClick}>
-              <img src='./assets/shared/desktop/icon-cart.svg' alt='cart' />
-            </button>
-            {totalAmount > 0 && (
-              <div className='absolute z-1 -right-5 -top-4 px-2 py-1 text-[10px] rounded-full bg-accentOrange text-white'>
-                {totalAmount}
-              </div>
-            )}
-          </div>
-          {isModalOpen && (
-            <CartModal
-              isOpen={isModalOpen}
-              closeModal={() => setIsModalOpen(false)}
-            />
-          )}
-        </div>
-      </nav>
-    );
-  }
-
   return (
     <nav className='bg-primary w-full'>
-      <div className='container mx-auto px-10 py-8 flex flex-row justify-between items-center border-b border-white border-opacity-50'>
-        <button onClick={handleClick}>
+      <div className='container mx-auto px-10 py-8 flex flex-row justify-between items-center border-b border-white border-opacity-50 md:relative'>
+        <button onClick={handleClick} className='lg:hidden'>
           <img src='./assets/shared/tablet/icon-hamburger.svg' />
         </button>
-        <span className='sr-only'>Open main menu</span>
-        <Link to={PathConstants.HOME}>
+        <span className='sr-only lg:hidden'>Open main menu</span>
+        <NavLink to={PathConstants.HOME}>
           <img src='./assets/shared/desktop/logo.svg' alt='logo' />
-        </Link>
-        <div className='relative'>
+        </NavLink>
+        <div className='hidden lg:flex flex-row gap-16 text-white uppercase text-sm font-bold tracking-wider'>
+          <NavLink to={PathConstants.HOME}>
+            <span className='hover:text-accentOrange'>Home</span>
+          </NavLink>
+          <NavLink to={PathConstants.HEADPHONES}>
+            <span className='hover:text-accentOrange'>Headphones</span>
+          </NavLink>
+          <NavLink to={PathConstants.SPEAKERS}>
+            <span className='hover:text-accentOrange'>Speakers</span>
+          </NavLink>
+          <NavLink to={PathConstants.EARPHONES}>
+            <span className='hover:text-accentOrange'>Earphones</span>
+          </NavLink>
+        </div>
+        <div ref={elRef} className='relative'>
           <button onClick={handleCartClick}>
             <img src='./assets/shared/desktop/icon-cart.svg' alt='cart' />
           </button>
@@ -98,28 +64,28 @@ const Navbar: React.FC = () => {
               {totalAmount}
             </div>
           )}
+          {isModalOpen && (
+            <CartModal
+              isOpen={isModalOpen}
+              closeModal={() => setIsModalOpen(false)}
+            />
+          )}
         </div>
-        {isModalOpen && (
-          <CartModal
-            isOpen={isModalOpen}
-            closeModal={() => setIsModalOpen(false)}
-          />
-        )}
       </div>
       {isMenuOpen && (
-        <div className='w-full px-8 py-8 items-center bottom-0 flex flex-col gap-8 bg-primary border-b border-white border-opacity-50 text-white uppercase text-sm font-bold tracking-wider '>
-          <Link onClick={handleLinkClick} to={PathConstants.HOME}>
+        <div className='w-full container mx-auto px-8 py-8 items-center bottom-0 flex flex-col gap-8 bg-primary border-b border-white border-opacity-50 text-white uppercase text-sm font-bold tracking-wider '>
+          <NavLink onClick={handleLinkClick} to={PathConstants.HOME}>
             <span className='hover:text-accentOrange'>Home</span>
-          </Link>
-          <Link onClick={handleLinkClick} to={PathConstants.HEADPHONES}>
+          </NavLink>
+          <NavLink onClick={handleLinkClick} to={PathConstants.HEADPHONES}>
             <span className='hover:text-accentOrange'>Headphones</span>
-          </Link>
-          <Link onClick={handleLinkClick} to={PathConstants.SPEAKERS}>
+          </NavLink>
+          <NavLink onClick={handleLinkClick} to={PathConstants.SPEAKERS}>
             <span className='hover:text-accentOrange'>Speakers</span>
-          </Link>
-          <Link onClick={handleLinkClick} to={PathConstants.EARPHONES}>
+          </NavLink>
+          <NavLink onClick={handleLinkClick} to={PathConstants.EARPHONES}>
             <span className='hover:text-accentOrange'>Earphones</span>
-          </Link>
+          </NavLink>
         </div>
       )}
     </nav>

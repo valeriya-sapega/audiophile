@@ -10,7 +10,7 @@ import { zodResolver } from '@hookform/resolvers/zod';
 import { FormData, schema } from '../utils/schema';
 
 const Checkout = () => {
-  const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isComplete, setIsComplete] = useState(false);
   const [paymentMethod, setPaymentMethod] = useState<string>();
 
   const methods = useForm<FormData>({
@@ -35,15 +35,15 @@ const Checkout = () => {
     setPaymentMethod(value);
   };
 
-  console.log(isModalOpen);
+  console.log(isComplete);
 
   const onOrderCompleteClick = (data: FormData) => {
-    setIsModalOpen(true);
+    setIsComplete(true);
     console.log(data);
   };
 
   const handleModalClose = () => {
-    setIsModalOpen(false);
+    setIsComplete(false);
     dispatch(removeAllFromCart());
   };
 
@@ -314,7 +314,7 @@ const Checkout = () => {
               Complete order
             </Button>
 
-            <ThankYouPopup isOpen={isModalOpen} onClose={handleModalClose} />
+            <ThankYouPopup isOpen={isComplete} onClose={handleModalClose} />
           </div>
         </form>
       </FormProvider>
