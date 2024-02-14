@@ -40,7 +40,7 @@ const Product = () => {
       </div>
     );
   } else if (error) {
-    content = <ErrorPage />;
+    content = <ErrorPage type='product' />;
   } else if (data && !error) {
     const { name, description, price, isNew, features, image, includes } = data;
     content = (

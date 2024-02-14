@@ -32,7 +32,7 @@ const CategoryPage = ({ category }: CategoryPageProps) => {
       </div>
     );
   } else if (error) {
-    content = <ErrorPage />;
+    content = <ErrorPage type='category' />;
   } else if (data && !error) {
     content = data.map((product) => {
       return (
