@@ -13,6 +13,7 @@ export default {
         accentOrangeHover: '#fbaf85',
         greyBg: '#F1F1F1',
         greyBgLight: '#FAFAFA',
+        red: '#CD2C2C',
       },
     },
   },
