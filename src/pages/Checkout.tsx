@@ -4,11 +4,12 @@ import { IRootState, getTotalPrice, removeAllFromCart } from '../store/store';
 import Input from '../components/Input';
 import RadioButton from '../components/RadioButton';
 import Button from '../components/Button';
-import { useState } from 'react';
+import { FormEvent, useState } from 'react';
 import ThankYouPopup from '../components/ThankYouPopup';
 
 const Checkout = () => {
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [paymentMethod, setPaymentMethod] = useState<string>();
 
   const dispatch = useDispatch();
 
@@ -18,7 +19,14 @@ const Checkout = () => {
 
   dispatch(getTotalPrice());
 
-  const onOrderCompleteClick = () => {
+  const disablePaymentMethods = paymentMethod === 'cash' ? true : false;
+
+  const handleRadioChange = (value: string) => {
+    setPaymentMethod(value);
+  };
+
+  const onOrderCompleteClick = (e: FormEvent) => {
+    e.preventDefault();
     setIsModalOpen(true);
   };
   const handleModalClose = () => {
@@ -55,7 +63,10 @@ const Checkout = () => {
   return (
     <div className='mx-auto container'>
       <div className='mx-4 my-12 grid grid-cols-1 md:my-32 md:mx-12 lg:grid-cols-3 gap-4 '>
-        <div className='bg-white shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] rounded px-6 py-8 md:px-14 md:py-12 lg:cols-start-1 lg:col-span-2'>
+        <form
+          onSubmit={onOrderCompleteClick}
+          className='bg-white shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] rounded px-6 py-8 md:px-14 md:py-12 lg:cols-start-1 lg:col-span-2'
+        >
           <h1 className='text-3xl uppercase font-bold tracking-wide mb-10'>
             Checkout
           </h1>
@@ -69,18 +80,21 @@ const Checkout = () => {
                 label='full name'
                 type='text'
                 placeholder='Jane Doe'
+                required={true}
               />
               <Input
                 id='email'
                 label='Email Address'
                 type='email'
                 placeholder='jane@doe.com'
+                required={true}
               />
               <Input
                 id='phone'
                 label='phone number'
                 type='tel'
                 placeholder='+12345006789'
+                required={true}
               />
             </div>
           </div>
@@ -96,6 +110,7 @@ const Checkout = () => {
                 type='text'
                 placeholder='44 Khreschatyk street'
                 className='lg:col-span-2'
+                required={true}
               />
               <Input
                 id='zipcode'
@@ -103,6 +118,7 @@ const Checkout = () => {
                 type='text'
                 placeholder='01001'
                 className='lg:row-start-2'
+                required={true}
               />
               <Input
                 id='city'
@@ -110,12 +126,14 @@ const Checkout = () => {
                 type='text'
                 placeholder='Kyiv'
                 className='lg:row-start-2'
+                required={true}
               />
               <Input
                 id='country'
                 label='country'
                 type='text'
                 placeholder='Ukraine'
+                required={true}
               />
             </div>
           </div>
@@ -127,11 +145,20 @@ const Checkout = () => {
               <h3 className='font-bold capitalize self-center lg:self-start'>
                 Payment Method
               </h3>
-              <RadioButton id='emoney' label='e-Money' />
+              <RadioButton
+                id='emoney'
+                label='e-Money'
+                value='emoney'
+                checked={paymentMethod === 'emoney'}
+                handleChange={() => handleRadioChange('emoney')}
+              />
               <RadioButton
                 className='lg:col-start-2'
                 id='cash'
                 label='Cash on Delivery'
+                value='cash'
+                checked={paymentMethod === 'cash'}
+                handleChange={() => handleRadioChange('cash')}
               />
               <Input
                 id='eNumber'
@@ -139,6 +166,7 @@ const Checkout = () => {
                 type='number'
                 placeholder='238521993'
                 className='lg:row-start-3'
+                disabled={disablePaymentMethods}
               />
               <Input
                 id='ePin'
@@ -146,10 +174,11 @@ const Checkout = () => {
                 type='number'
                 placeholder='6891'
                 className='lg:row-start-3'
+                disabled={disablePaymentMethods}
               />
             </div>
           </div>
-        </div>
+        </form>
         <div className='bg-white shadow-[rgba(17,_17,_26,_0.1)_0px_0px_16px] rounded h-fit px-6 py-8 md:px-14 md:py-12 '>
           <h2 className='text-lg font-bold tracking-wider uppercase '>
             Summary

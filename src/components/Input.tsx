@@ -3,8 +3,9 @@ interface InputProps {
   label: string;
   placeholder: string;
   type: 'number' | 'email' | 'text' | 'tel';
-  handleChange?: () => void;
   className?: string;
+  required?: boolean;
+  disabled?: boolean;
 }
 
 const Input = ({
@@ -13,7 +14,8 @@ const Input = ({
   placeholder,
   type,
   className,
-  handleChange,
+  required,
+  disabled,
 }: InputProps) => {
   return (
     <div className={className}>
@@ -21,12 +23,13 @@ const Input = ({
         {label}
       </label>
       <input
+        disabled={disabled}
+        required={required}
         id={id}
         name={id}
         type={type}
         placeholder={placeholder}
-        className={`appearance-none mt-2 py-4 px-6 w-full font-bold outline-none rounded-lg border border-primary border-opacity-30 placeholder:font-bold placeholder:text-primary placeholder:text-opacity-50 focus:border-accentOrange `}
-        onChange={handleChange}
+        className={`appearance-none mt-2 py-4 px-6 w-full font-bold outline-none rounded-lg border border-primary border-opacity-30 placeholder:font-bold placeholder:text-primary placeholder:text-opacity-50 focus:border-accentOrange disabled:bg-primary disabled:bg-opacity-10`}
       />
     </div>
   );
