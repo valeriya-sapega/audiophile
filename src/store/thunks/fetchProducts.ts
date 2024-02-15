@@ -12,6 +12,9 @@ const fetchProducts = createAsyncThunk(
     const result = response.data.filter(
       (product: Product) => product.category === category
     );
+
+    await pause(1000);
+
     return result;
   }
 );
@@ -23,8 +26,16 @@ const fetchSingleProduct = createAsyncThunk(
       `https://audiophile-server.glitch.me/products/${id}`
     );
 
+    await pause(1000);
+
     return response.data;
   }
 );
+
+const pause = (duration: number) => {
+  return new Promise((resolve) => {
+    setTimeout(resolve, duration);
+  });
+};
 
 export { fetchProducts, fetchSingleProduct };
