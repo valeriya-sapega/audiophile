@@ -11,7 +11,7 @@ const Footer = () => {
           <div className='mx-4 my-10 flex flex-col gap-10 md:flex-row-reverse md:gap-[10%] items-center '>
             <div className='md:w-[45%]'>
               <img
-                src='./assets/shared/desktop/image-best-gear.jpg'
+                src='/assets/shared/desktop/image-best-gear.jpg'
                 alt='Best Gear'
                 className='rounded-lg w-full md:h-[80%] lg:h-[66%]'
               />
@@ -40,7 +40,7 @@ const Footer = () => {
             <div className='mx-2 py-12 grid gap-10 grid-cols-1 md:grid-cols-4 md:grid-rows-4 lg:grid-cols-4 lg:grid-rows-3 '>
               <div className='justify-self-center md:justify-self-start md:col-span-4 lg:col-span-2'>
                 <NavLink to={PathConstants.HOME}>
-                  <img src='./assets/shared/desktop/logo.svg' alt='logo' />
+                  <img src='/assets/shared/desktop/logo.svg' alt='logo' />
                 </NavLink>
               </div>
               <div className='text-white uppercase text-sm font-bold tracking-wider md:col-span-4 md:row-start-2  lg:row-start-1 lg:col-span-2 lg:col-start-3'>
@@ -73,19 +73,19 @@ const Footer = () => {
                 <div className='flex flex-row gap-8 text-white text-opacity-50'>
                   <Link to='/'>
                     <img
-                      src='./assets/shared/desktop/icon-facebook.svg'
+                      src='/assets/shared/desktop/icon-facebook.svg'
                       alt='facebook logo'
                     />
                   </Link>
                   <Link to='/'>
                     <img
-                      src='./assets/shared/desktop/icon-instagram.svg'
+                      src='/assets/shared/desktop/icon-instagram.svg'
                       alt='instagram logo'
                     />
                   </Link>
                   <Link to='/'>
                     <img
-                      src='./assets/shared/desktop/icon-twitter.svg'
+                      src='/assets/shared/desktop/icon-twitter.svg'
                       alt='twitter logo'
                     />
                   </Link>

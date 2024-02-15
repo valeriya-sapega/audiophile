@@ -7,7 +7,7 @@ const ProductCategories = () => {
     <div className='grid grid-cols-1 pt-[100px] mt-30 md:grid-cols-3 gap-8 items-end'>
       <div className='mx-4 md:mx-2'>
         <img
-          src='./assets/shared/desktop/image-category-thumbnail-headphones.png'
+          src='/assets/shared/desktop/image-category-thumbnail-headphones.png'
           alt='headphonesCategory'
           className='-mb-[38%] mx-auto object-contain'
         />
@@ -22,7 +22,7 @@ const ProductCategories = () => {
       </div>
       <div className='mx-4 md:mx-2'>
         <img
-          src='./assets/shared/desktop/image-category-thumbnail-earphones.png'
+          src='/assets/shared/desktop/image-category-thumbnail-earphones.png'
           alt='earphonesCategory'
           className='-mb-[42%] mx-auto object-contain'
         />
@@ -37,7 +37,7 @@ const ProductCategories = () => {
       </div>
       <div className='mx-4 md:mx-2'>
         <img
-          src='./assets/shared/desktop/image-category-thumbnail-speakers.png'
+          src='/assets/shared/desktop/image-category-thumbnail-speakers.png'
           alt='speakersCategory'
           className='-mb-[40%] mx-auto object-contain'
         />

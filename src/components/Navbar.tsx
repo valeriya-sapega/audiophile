@@ -35,11 +35,14 @@ const Navbar: React.FC = () => {
     <nav className='bg-primary w-full'>
       <div className='container mx-auto px-10 py-8 flex flex-row justify-between items-center border-b border-white border-opacity-50 md:relative'>
         <button onClick={handleClick} className='lg:hidden'>
-          <img src='./assets/shared/tablet/icon-hamburger.svg' />
+          <img
+            src='/assets/shared/desktop/icon-hamburger.svg'
+            alt='menu icon'
+          />
         </button>
         <span className='sr-only lg:hidden'>Open main menu</span>
         <NavLink to={PathConstants.HOME}>
-          <img src='./assets/shared/desktop/logo.svg' alt='logo' />
+          <img src='/assets/shared/desktop/logo.svg' alt='logo' />
         </NavLink>
         <div className='hidden lg:flex flex-row gap-16 text-white uppercase text-sm font-bold tracking-wider'>
           <NavLink to={PathConstants.HOME}>
@@ -57,7 +60,7 @@ const Navbar: React.FC = () => {
         </div>
         <div ref={elRef} className='relative'>
           <button onClick={handleCartClick}>
-            <img src='./assets/shared/desktop/icon-cart.svg' alt='cart' />
+            <img src='/assets/shared/desktop/icon-cart.svg' alt='cart' />
           </button>
           {totalAmount > 0 && (
             <div className='absolute z-1 -right-5 -top-4 px-2 py-1 text-[10px] rounded-full bg-accentOrange text-white'>

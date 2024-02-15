@@ -6,7 +6,7 @@ const fetchProducts = createAsyncThunk(
   'products/fetch',
   async (category: string) => {
     const response = await axios.get(
-      'https://nonstop-dashing-stetson.glitch.me/products'
+      'https://audiophile-server.glitch.me/products'
     );
 
     const result = response.data.filter(
@@ -20,7 +20,7 @@ const fetchSingleProduct = createAsyncThunk(
   'product/fetch',
   async (id: string) => {
     const response = await axios.get(
-      `https://nonstop-dashing-stetson.glitch.me/products/${id}`
+      `https://audiophile-server.glitch.me/products/${id}`
     );
 
     return response.data;

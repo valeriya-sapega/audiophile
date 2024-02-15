@@ -1,6 +1,7 @@
 import Header from '../components/Header';
 import ProductCategories from '../components/ProductCategories';
 import MainContainer from '../components/MainContainer';
+import ScrollToTop from '../utils/hooks/scrollToTop';
 
 const Home = () => {
   return (
@@ -11,6 +12,7 @@ const Home = () => {
           <ProductCategories />
         </MainContainer>
       </div>
+      <ScrollToTop />
     </>
   );
 };

@@ -3,6 +3,7 @@ interface ErrorPageProps {
 }
 
 const ErrorPage = ({ type }: ErrorPageProps) => {
+  
   let content: string;
   if (type === 'category') {
     content = `:( We couldn't find any products for this category. Please try again later.`;
