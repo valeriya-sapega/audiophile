@@ -48,7 +48,7 @@ const ProductDescription = ({
             <img
               src={image}
               alt={title}
-              className='rounded-lg object-contain h-96 w-full mx-auto'
+              className='my-20 rounded-lg object-contain h-96 w-full mx-auto md:my-0'
             />
           </div>
         )}
